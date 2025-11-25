@@ -315,20 +315,20 @@ MIT License - see [LICENSE](license.txt) for details.
 
 ---
 
-## 🏢 About
+## 👨‍💻 Author
 
 <p align="center">
-  <strong>Developed with ❤️ by <a href="https://yarsalabs.com">Yarsa Labs Pvt. Ltd.</a></strong>
+  <strong>Developed by Rohan Ghimire</strong>
   <br/>
-  <sub>Making ERPNext work for Nepal 🇳🇵</sub>
-</p>
-
-<p align="center">
-  <a href="mailto:support@yarsalabs.com">📧 support@yarsalabs.com</a>
+  <a href="mailto:ghimirerohan@gmail.com">📧 ghimirerohan@gmail.com</a>
 </p>
 
 ---
 
 <p align="center">
   <strong>⭐ If you find this useful, please star this repository! ⭐</strong>
+</p>
+
+<p align="center">
+  <sub>Made with ❤️ in Nepal 🇳🇵</sub>
 </p>
