@@ -21,6 +21,11 @@ function fetch_user_date_preference() {
     });
 }
 
+function get_ndp_mode() {
+    const theme = frappe.boot?.user?.theme?.toLowerCase() || "light";
+    return theme === "dark" ? "dark" : "light";
+}
+
 function override_with_nepali_date_picker(use_ad_date) {
     if (use_ad_date) {
         extend_with_ad_date_picker();
@@ -80,14 +85,15 @@ function extend_with_bs_date_picker() {
         }
 
         setup_nepali_date_picker() {
-            this.$input.nepaliDatePicker({
-                ndpYear: true,
-                ndpMonth: true,
-                ndpYearCount: 10,
-                ndpFormat: 'YYYY-MM-DD',
-                closeOnDateSelect: true,
-                onChange: (e) => {
-                    const bs_date = e.bs;
+            const inputEl = this.$input[0];
+
+            inputEl.NepaliDatePicker({
+                dateFormat: 'YYYY-MM-DD',
+                miniEnglishDates: true,
+                mode: get_ndp_mode(),
+                animation: 'fade',
+                onSelect: (d) => {
+                    const bs_date = d.value;
                     try {
                         const ad_date = NepaliFunctions.BS2AD(bs_date, "YYYY-MM-DD", "YYYY-MM-DD");
                         this.$input.val(bs_date);
@@ -141,7 +147,7 @@ function extend_with_bs_date_picker() {
 
         parse(value) {
             if (value === "Today") {
-                const bs_today = NepaliFunctions.getToday();
+                const bs_today = NepaliFunctions.BS.GetCurrentDate("YYYY-MM-DD");
                 return NepaliFunctions.BS2AD(bs_today, "YYYY-MM-DD", "YYYY-MM-DD");
             }
 

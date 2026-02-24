@@ -9,17 +9,17 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/bs_calendar/css/calendar.css",
+app_include_css = ["/assets/bs_calendar/css/nepali_datepicker_v5.css",
                    "/assets/bs_calendar/css/date.css",
                    "/assets/bs_calendar/css/calendar_theme.css",
                    "/assets/bs_calendar/css/doctype.css"]
 
 app_include_js = [
-                 "/assets/bs_calendar/js/bs_module.js",
+                 "/assets/bs_calendar/js/nepali_datepicker_v5.js",
+                 "/assets/bs_calendar/js/calendar_theme.js",
                  "/assets/bs_calendar/js/nepali_date.js",
                  "/assets/bs_calendar/js/formatter.js",
                  "/assets/bs_calendar/js/report_filter.js",
-                 "/assets/bs_calendar/js/calendar_theme.js",
                  "/assets/bs_calendar/js/employee_benefit_claim.js"
                  ]
 

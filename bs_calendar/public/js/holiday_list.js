@@ -45,7 +45,7 @@ frappe.ui.form.on('Holiday', {
                     doctype: cdt,
                     docname: cdn
                 }, 'nepali_date_holiday', 'holiday_date');
-                
+
                 field.$input.data('has-nepali-datepicker', true);
             }
         }
@@ -64,60 +64,25 @@ function updateAllNepaliDates(frm) {
         frm.refresh_field('holidays');
     }
 }
- 
+
 function initNepaliPicker() {
     $('input[data-fieldname="nepali_date_holiday"]:not(.ndp-initialized)').each(function() {
         let $input = $(this);
         if ($input.hasClass('ndp-initialized')) return;
-        
+
         try {
-            $input.addClass('ndp-initialized')
-                .nepaliDatePicker({
-                    ndpYear: true,
-                    ndpMonth: true,
-                    ndpYearCount: 100,
-                    onChange: function(e) {
-                        $input.val(e.bs).trigger('change');
-                    }
-                });
+            $input.addClass('ndp-initialized');
+            const inputEl = $input[0];
+            const mode = (typeof get_ndp_mode === 'function') ? get_ndp_mode() : 'light';
 
-            let $parent = $input.parent().css('position', 'relative');
-            $parent.find('.nepali-calendar-icon').remove();
-
-            let $icon = $('<i>')
-                .addClass('fa fa-calendar nepali-calendar-icon')
-                .css({
-                    'position': 'absolute',
-                    'right': '10px',
-                    'top': '50%',
-                    'transform': 'translateY(-50%)',
-                    'cursor': 'pointer',
-                    'z-index': '1000',
-                    'font-size': '16px',
-                    'color': '#555'
-                });
-
-            $parent.append($icon);
-            $input.css('padding-right', '30px');
- 
-            function showPicker() {
-                if ($input.data('nepaliDatePicker')) {
-                    setTimeout(() => $input.data('nepaliDatePicker').show(), 100);
+            inputEl.NepaliDatePicker({
+                dateFormat: 'YYYY-MM-DD',
+                miniEnglishDates: true,
+                mode: mode,
+                animation: 'fade',
+                onSelect: function(d) {
+                    $input.val(d.value).trigger('change');
                 }
-            }
-            $input.off('click.ndp focus.ndp')
-                .on('click.ndp focus.ndp', showPicker)
-                .on('focus.ndp', function() {
-                    if (!$input.data('had-focus')) {
-                        $input.data('had-focus', true);
-                        showPicker();
-                    }
-                });
-            $icon.on('click.ndp', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                $input.focus();
-                showPicker();
             });
         } catch (e) {
             console.error("Error initializing picker:", e);

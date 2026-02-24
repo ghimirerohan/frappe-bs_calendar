@@ -15,15 +15,17 @@ const NepaliFormDatePicker = {
         if ($input.hasClass('nepali-picker-initialized')) return;
 
         $input.addClass('nepali-picker-initialized');
-        this.wrapInputWithIcon($input);
 
-        $input.nepaliDatePicker({
-            ndpYear: true,
-            ndpMonth: true,
-            ndpYearCount: 10,
-            ndpFormat: 'YYYY-MM-DD',
-            onChange: (e) => {
-                const bsDate = e.bs;
+        const inputEl = $input[0];
+        const mode = (typeof get_ndp_mode === 'function') ? get_ndp_mode() : 'light';
+
+        inputEl.NepaliDatePicker({
+            dateFormat: 'YYYY-MM-DD',
+            miniEnglishDates: true,
+            mode: mode,
+            animation: 'fade',
+            onSelect: (d) => {
+                const bsDate = d.value;
                 $input.val(bsDate);
                 frappe.model.set_value(frm.doctype, frm.docname, bsField, bsDate);
 
@@ -49,31 +51,5 @@ const NepaliFormDatePicker = {
                 $(this).val('');
             }
         });
-    },
-
-    wrapInputWithIcon($input) {
-        if (!$input.parent().hasClass('date-picker-wrapper')) {
-            $input.wrap('<div class="date-picker-wrapper" style="position:relative;"></div>');
-        }
-
-        if (!$input.parent().find('.nepali-calendar-icon').length) {
-            const $icon = $('<i class="fa fa-calendar nepali-calendar-icon"></i>').css({
-                position: 'absolute',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                cursor: 'pointer',
-                'z-index': 1
-            }).on('click', function (e) {
-                e.stopPropagation();
-                $input.focus().trigger('click');
-                if ($input.data('nepaliDatePicker')) {
-                    $input.data('nepaliDatePicker').show();
-                }
-            });
-
-            $input.parent().append($icon);
-            $input.css('padding-right', '30px');
-        }
     }
 };
